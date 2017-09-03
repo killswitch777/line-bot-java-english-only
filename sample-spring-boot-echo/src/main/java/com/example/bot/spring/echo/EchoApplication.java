@@ -34,13 +34,13 @@ public class EchoApplication {
     }
 
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    public TextMessage handleTextMessageEvent() {
+	    MessageEvent<TextMessageContent> event;
 	    System.out.println("event: " + event);
-	    //String text = event.getMessage().getText();
-	    //if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
-	    //else text = "";
-	    //return new TextMessage(event.getMessage().getText());
-	    return new TextMessage(4343);
+	    String text = event.getMessage().getText();
+	    if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
+	    else text = "";
+	    return new TextMessage(text);
     }
 
     @EventMapping
