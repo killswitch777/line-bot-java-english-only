@@ -35,11 +35,10 @@ public class EchoApplication {
 
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-        //System.out.println("event: " + event);
-		String text = event.getMessage().getText();
-		boolean detect = (text.getBytes().length == s1.length()) ? false : true;
-		if (detect) return new TextMessage("ENGLISH ONLY!!!\nENGLISH ONLY!!!\nENGLISH ONLY!!!");
-		else return new TextMessage();
+        System.out.println("event: " + event);
+	    String text = event.getMessage().getText();
+	    if (text.getBytes().length != s1.length()) return new TextMessage("ENGLISH ONLY!!!\nENGLISH ONLY!!!\nENGLISH ONLY!!!");
+	    else return new TextMessage();
     }
 
     @EventMapping
