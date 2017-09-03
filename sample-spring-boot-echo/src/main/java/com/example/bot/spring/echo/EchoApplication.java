@@ -39,7 +39,7 @@ public class EchoApplication {
 	    String text = event.getMessage().getText();
 	    if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
 	    else text = "";
-	    return new TextMessage(text);
+	    return new TextMessage("text");
     }
 
     @EventMapping
