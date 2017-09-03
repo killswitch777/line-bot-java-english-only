@@ -29,22 +29,25 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(EchoApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(EchoApplication.class, args);
+	}
 
-    @EventMapping
-    public TextMessage handleTextMessageEvent() {
-	    MessageEvent<TextMessageContent> event;
-	    System.out.println("event: " + event);
-	    String text = event.getMessage().getText();
-	    if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
+	@EventMapping
+	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+		TextMessageContent message = event.getMessage();
+		handleTextContent(event.getReplyToken(), event, message);
+	}
+
+	@EventMapping
+	public void handleDefaultMessageEvent(Event event) {
+		System.out.println("event: " + event);
+	}
+
+	private void handleTextContent(String replyToken, Event event, TextMessageContent content) throws Exception {
+	    String text = content.getText();
+	if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
 	    else text = "";
-	    return new TextMessage(text);
-    }
-
-    @EventMapping
-    public void handleDefaultMessageEvent(Event event) {
-        System.out.println("event: " + event);
-    }
+	    this.replyText(replyToken, text);
+        }
 }
