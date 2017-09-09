@@ -28,6 +28,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.linecorp.bot.model.ReplyMessage;
 import java.util.Collections;
 import com.linecorp.bot.client.LineMessagingClient;
+import lombok.NonNull;
 
 @SpringBootApplication
 @LineMessageHandler
