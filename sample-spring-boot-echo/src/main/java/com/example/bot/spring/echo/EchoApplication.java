@@ -104,13 +104,14 @@ public class EchoApplication {
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
 		TextMessageContent message = event.getMessage();
-		String text = message.getText();
-		if (text.getBytes().length == text.length()) handleTextContent(event.getReplyToken());
+		handleTextContent(event.getReplyToken(), message);
 	}
 	
-	private void handleTextContent(String replyToken)
+	private void handleTextContent(String replyToken, TextMessageContent content)
 		throws Exception {
-		this.replyText(replyToken, "ENGLISH ONLY!!!");
+		String text = content.getText();
+		log.info("Got text message from {}: {}", replyToken, text);
+		if (text.getBytes().length == text.length()) this.replyText(replyToken, "ENGLISH ONLY!!!");
 	}
 	
 	@EventMapping
