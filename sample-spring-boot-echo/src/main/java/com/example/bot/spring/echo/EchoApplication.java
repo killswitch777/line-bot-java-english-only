@@ -112,7 +112,7 @@ public class EchoApplication {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
 		if (1 == 2) text = "ENGLISH ONLY!!!";
-		else replyToken = null;
+		else text = null;
 		this.replyText(replyToken, text);
 	}
 	
