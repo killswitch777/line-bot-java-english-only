@@ -111,7 +111,7 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		if (text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
+		if (1 == 1) text = "ENGLISH ONLY!!!";
 		else replyToken = null;
 		this.replyText(replyToken, text);
 	}
