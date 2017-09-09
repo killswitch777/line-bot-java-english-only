@@ -111,8 +111,9 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		this.replyText(replyToken, "ENGLISH ONLY!!!");
-		//if (text.getBytes().length == text.length()) this.replyText(replyToken, "ENGLISH ONLY!!!");
+		if (text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
+		else text = "";
+		this.replyText(replyToken, text);
 	}
 	
 	@EventMapping
