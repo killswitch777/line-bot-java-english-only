@@ -130,11 +130,11 @@ public class EchoApplication {
 		this.reply(replyToken, new TextMessage(message));
 	}
 	
-	//private void reply(@NonNull String replyToken, @NonNull Message message) {
-	//	reply(replyToken, Collections.singletonList(message));
-	//}
+	private void reply(@NonNull String replyToken, @NonNull Message message) {
+		reply(replyToken, Collections.singletonList(message));
+	}
 	
-	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+	/**private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
 			BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
@@ -143,5 +143,5 @@ public class EchoApplication {
 		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}**/
 }
