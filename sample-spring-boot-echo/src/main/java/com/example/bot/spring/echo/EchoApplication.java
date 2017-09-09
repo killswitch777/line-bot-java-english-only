@@ -129,13 +129,10 @@ public class EchoApplication {
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
-			if (messages == "ENGLISH ONLY!!!"){
-				BotApiResponse apiResponse = lineMessagingClient
+			BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
 				.get();
 			log.info("Sent messages: {}", apiResponse);
-			}
-			
 		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
