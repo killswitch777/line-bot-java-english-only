@@ -44,13 +44,12 @@ public class EchoApplication {
 	//}
 	
 	@EventMapping
-	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		TextMessageContent message = event.getMessage();
 		handleTextContent(event.getReplyToken(), event, message);
 	}
 	
-	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
-		throws Exception {
+	private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
 		String text = content.getText();
 		this.replyText(replyToken, text);
 	}
