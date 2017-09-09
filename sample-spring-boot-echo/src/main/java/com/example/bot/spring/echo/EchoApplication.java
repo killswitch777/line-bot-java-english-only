@@ -33,13 +33,25 @@ public class EchoApplication {
 		SpringApplication.run(EchoApplication.class, args);
 	}
 
-	@EventMapping
-	public void TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+	//@EventMapping
+	//public void TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		//System.out.println("event: " + event);
 		//String text = event.getMessage().getText();
 		//boolean detect = (text.getBytes().length == s1.length()) ? false : true;
 		//if (detect) return new TextMessage("ENGLISH ONLY!!!\nENGLISH ONLY!!!\nENGLISH ONLY!!!");
 		//else return new TextMessage();
+		
+	//}
+	
+    @EventMapping
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+        TextMessageContent message = event.getMessage();
+        handleTextContent(event.getReplyToken(), event, message);
+    }
+	
+	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
+		throws Exception {
+		
 		
 		TextMessage textMessage = new TextMessage("hello");
 		ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(),textMessage);
@@ -50,7 +62,7 @@ public class EchoApplication {
 			.execute();
 		System.out.println(response.code() + " " + response.message());
 	}
-
+	
 	@EventMapping
 	public void handleDefaultMessageEvent(Event event) {
 		System.out.println("event: " + event);
