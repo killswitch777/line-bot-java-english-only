@@ -43,24 +43,16 @@ public class EchoApplication {
 		
 	//}
 	
-    @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = event.getMessage();
-        handleTextContent(event.getReplyToken(), event, message);
-    }
+	@EventMapping
+	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+		TextMessageContent message = event.getMessage();
+		handleTextContent(event.getReplyToken(), event, message);
+	}
 	
 	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
 		throws Exception {
-		
-		
-		TextMessage textMessage = new TextMessage("hello");
-		ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(),textMessage);
-		Response<BotApiResponse> response = LineMessagingServiceBuilder
-			.create(event.getReplyToken())
-			.build()
-			.replyMessage(replyMessage)
-			.execute();
-		System.out.println(response.code() + " " + response.message());
+		String text = content.getText();
+		this.replyText(replyToken, text);
 	}
 	
 	@EventMapping
