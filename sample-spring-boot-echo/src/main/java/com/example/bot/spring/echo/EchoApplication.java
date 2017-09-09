@@ -28,22 +28,10 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.linecorp.bot.model.ReplyMessage;
 import java.util.Collections;
 import com.linecorp.bot.client.LineMessagingClient;
+
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
+import lombok.Value;
 
 @Slf4j
 @SpringBootApplication
