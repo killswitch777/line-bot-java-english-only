@@ -107,13 +107,11 @@ public class EchoApplication {
 		handleTextContent(event.getReplyToken(), message);
 	}
 	
-	private void handleTextContent(String replyToken, TextMessageContent content)
-		{
+	private void handleTextContent(String replyToken, TextMessageContent content) throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		if (text.getBytes().length == text.length()) this.replyText(replyToken, text);
-		//if(text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
-		//else text = null;
+		if (text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
+		this.replyText(replyToken, text);
 	}
 	
 	@EventMapping
@@ -131,10 +129,13 @@ public class EchoApplication {
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
-			BotApiResponse apiResponse = lineMessagingClient
+			if (messages = "ENGLISH ONLY!!!"){
+				BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
 				.get();
 			log.info("Sent messages: {}", apiResponse);
+			}
+			
 		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
