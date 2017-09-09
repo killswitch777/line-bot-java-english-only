@@ -111,8 +111,7 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		if (1 == 2) text = "ENGLISH ONLY!!!";
-		else text = null;
+		text = "ENGLISH ONLY!!!";
 		this.replyText(replyToken, text);
 	}
 	
@@ -131,9 +130,9 @@ public class EchoApplication {
 		this.reply(replyToken, new TextMessage(message));
 	}
 	
-	private void reply(@NonNull String replyToken, @NonNull Message message) {
-		reply(replyToken, Collections.singletonList(message));
-	}
+	//private void reply(@NonNull String replyToken, @NonNull Message message) {
+	//	reply(replyToken, Collections.singletonList(message));
+	//}
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
