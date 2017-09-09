@@ -111,8 +111,20 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		this.replyText(replyToken, text);
+		//this.replyText(replyToken, text);
 		
+		TextMessage textMessage = new TextMessage(text);
+		ReplyMessage replyMessage = new ReplyMessage(
+			replyToken,
+			textMessage
+		);
+		Response<BotApiResponse> response =
+			LineMessagingServiceBuilder
+			.create("5/C98qjdhrqyoM0gW+rHCLlX9GdkZPHw4DdRncIgC7lA4ncP+ZXfN3/SyKg1HVnaSNq0e4yJFwCE5KKpwqdJDo9HhONmE8yGSM83XSQfKjv2CakjV9JxBg5Sc+j3lRC2usqOa69IKI8eWexH5c9JTAdB04t89/1O/w1cDnyilFU=")
+			.build()
+			.replyMessage(replyMessage)
+			.execute();
+		System.out.println(response.code() + " " + response.message());
 		//if(text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
 		//else text = null;
 	}
@@ -122,14 +134,25 @@ public class EchoApplication {
 		System.out.println("event: " + event);
 	}
 	
-	private void replyText(@NonNull String replyToken, @NonNull String message) {
-		//this.reply(replyToken, new TextMessage(message));
-		BotApiResponse apiResponse = lineMessagingClient
-				.replyMessage(new ReplyMessage(replyToken, message))
-				.get();
+	/**private void replyText(@NonNull String replyToken, @NonNull String message) {
+		this.reply(replyToken, new TextMessage(message));
+		
+		
+		TextMessage textMessage = new TextMessage("hello");
+		ReplyMessage replyMessage = new ReplyMessage(
+			replyToken,
+			textMessage
+		);
+		Response<BotApiResponse> response =
+			LineMessagingServiceBuilder
+			.create("5/C98qjdhrqyoM0gW+rHCLlX9GdkZPHw4DdRncIgC7lA4ncP+ZXfN3/SyKg1HVnaSNq0e4yJFwCE5KKpwqdJDo9HhONmE8yGSM83XSQfKjv2CakjV9JxBg5Sc+j3lRC2usqOa69IKI8eWexH5c9JTAdB04t89/1O/w1cDnyilFU=")
+			.build()
+			.replyMessage(replyMessage)
+			.execute();
+		System.out.println(response.code() + " " + response.message());
 	}
 	
-	/**private void reply(@NonNull String replyToken, @NonNull Message message) {
+	private void reply(@NonNull String replyToken, @NonNull Message message) {
 		reply(replyToken, Collections.singletonList(message));
 	}
 	
