@@ -34,20 +34,25 @@ public class EchoApplication {
 	}
 
 	@EventMapping
-	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-		TextMessageContent message = event.getMessage();
-		handleTextContent(event.getReplyToken(), event, message);
+	public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+		//System.out.println("event: " + event);
+		//String text = event.getMessage().getText();
+		//boolean detect = (text.getBytes().length == s1.length()) ? false : true;
+		//if (detect) return new TextMessage("ENGLISH ONLY!!!\nENGLISH ONLY!!!\nENGLISH ONLY!!!");
+		//else return new TextMessage();
+		
+		TextMessage textMessage = new TextMessage("hello");
+		ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(),textMessage);
+		Response<BotApiResponse> response = LineMessagingServiceBuilder
+			.create("5/C98qjdhrqyoM0gW+rHCLlX9GdkZPHw4DdRncIgC7lA4ncP+ZXfN3/SyKg1HVnaSNq0e4yJFwCE5KKpwqdJDo9HhONmE8yGSM83XSQfKjv2CakjV9JxBg5Sc+j3lRC2usqOa69IKI8eWexH5c9JTAdB04t89/1O/w1cDnyilFU=")
+			.build()
+			.replyMessage(replyMessage)
+			.execute();
+		System.out.println(response.code() + " " + response.message());
 	}
 
 	@EventMapping
 	public void handleDefaultMessageEvent(Event event) {
 		System.out.println("event: " + event);
 	}
-
-	private void handleTextContent(String replyToken, Event event, TextMessageContent content) throws Exception {
-	    String text = content.getText();
-		this.replyText(replyToken, text);
-		//if (text.getBytes().length != s1.length()) text = "ENGLISH ONLY!!!";
-		//else text = "";
-        }
 }
