@@ -100,14 +100,6 @@ public class EchoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EchoApplication.class, args);
 	}
-
-	@EventMapping
-	public void TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-		System.out.println("event: " + event);
-		String text = event.getMessage().getText();
-		
-		
-	}
 	
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
@@ -141,7 +133,7 @@ public class EchoApplication {
 		reply(replyToken, Collections.singletonList(message));
 	}
 	
-	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+	/**private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
 			BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
@@ -150,5 +142,5 @@ public class EchoApplication {
 		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}**/
 }
