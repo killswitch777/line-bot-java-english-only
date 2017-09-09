@@ -111,7 +111,7 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		if ((text.getBytes().length == text.length()) ? false : true) this.replyText(replyToken, "ENGLISH ONLY!!!");
+		if (text.getBytes().length == text.length()) this.replyText(replyToken, "ENGLISH ONLY!!!");
 	}
 	
 	@EventMapping
@@ -129,9 +129,9 @@ public class EchoApplication {
 		this.reply(replyToken, new TextMessage(message));
 	}
 	
-	private void reply(@NonNull String replyToken, @NonNull Message message) {
-		reply(replyToken, Collections.singletonList(message));
-	}
+	//private void reply(@NonNull String replyToken, @NonNull Message message) {
+	//	reply(replyToken, Collections.singletonList(message));
+	//}
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
