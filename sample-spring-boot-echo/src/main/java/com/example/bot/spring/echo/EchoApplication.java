@@ -29,14 +29,6 @@ import com.linecorp.bot.model.ReplyMessage;
 import java.util.Collections;
 import com.linecorp.bot.client.LineMessagingClient;
 
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-
-
-
-
-
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
@@ -48,10 +40,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
-
-
-
 
 import com.linecorp.bot.model.message.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +65,17 @@ import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.message.VideoMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.RoomSource;
+import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.AudioMessage;
+import com.linecorp.bot.model.message.ImageMessage;
+import com.linecorp.bot.model.message.ImagemapMessage;
+import com.linecorp.bot.model.message.LocationMessage;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.StickerMessage;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
@@ -87,6 +86,9 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
+import lombok.NonNull;
+import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
