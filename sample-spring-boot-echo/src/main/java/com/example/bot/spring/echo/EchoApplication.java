@@ -129,9 +129,9 @@ public class EchoApplication {
 		this.reply(replyToken, new TextMessage(message));
 	}
 	
-	//private void reply(@NonNull String replyToken, @NonNull Message message) {
-	//	reply(replyToken, Collections.singletonList(message));
-	//}
+	private void reply(@NonNull String replyToken, @NonNull Message message) {
+		reply(replyToken, Collections.singletonList(message));
+	}
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
