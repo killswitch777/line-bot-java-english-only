@@ -129,7 +129,7 @@ public class EchoApplication {
 	
 	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
-			if (messages = "ENGLISH ONLY!!!"){
+			if (messages == "ENGLISH ONLY!!!"){
 				BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
 				.get();
