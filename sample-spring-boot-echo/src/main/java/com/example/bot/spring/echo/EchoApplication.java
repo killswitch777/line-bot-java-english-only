@@ -44,7 +44,7 @@ public class EchoApplication {
 		TextMessage textMessage = new TextMessage("hello");
 		ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(),textMessage);
 		Response<BotApiResponse> response = LineMessagingServiceBuilder
-			.create(5/C98qjdhrqyoM0gW+rHCLlX9GdkZPHw4DdRncIgC7lA4ncP+ZXfN3/SyKg1HVnaSNq0e4yJFwCE5KKpwqdJDo9HhONmE8yGSM83XSQfKjv2CakjV9JxBg5Sc+j3lRC2usqOa69IKI8eWexH5c9JTAdB04t89/1O/w1cDnyilFU=)
+			.create(event.getReplyToken())
 			.build()
 			.replyMessage(replyMessage)
 			.execute();
