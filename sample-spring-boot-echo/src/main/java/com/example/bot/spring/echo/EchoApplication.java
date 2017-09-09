@@ -32,7 +32,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-//@SpringBootApplication
+@SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
 	@Autowired
