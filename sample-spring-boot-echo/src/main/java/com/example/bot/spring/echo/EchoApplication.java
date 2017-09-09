@@ -112,7 +112,7 @@ public class EchoApplication {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
 		if(text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
-		else replyToken = " ";
+		else text = null;
 		this.replyText(replyToken, text);
 	}
 	
@@ -121,21 +121,15 @@ public class EchoApplication {
 		System.out.println("event: " + event);
 	}
 	
-	private void replyText(@NonNull String replyToken, @NonNull String message) {
-		if (replyToken.isEmpty()) {
-			throw new IllegalArgumentException("replyToken must not be empty");
-		}
-		if (message.length() > 1000) {
-			message = message.substring(0, 1000 - 2) + "......";
-		}
+	private void replyText(@NonNull String replyToken, String message) {
 		this.reply(replyToken, new TextMessage(message));
 	}
 	
-	private void reply(@NonNull String replyToken, @NonNull Message message) {
+	private void reply(@NonNull String replyToken, Message message) {
 		reply(replyToken, Collections.singletonList(message));
 	}
 	
-	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+	private void reply(@NonNull String replyToken, List<Message> messages) {
 		try {
 			BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
