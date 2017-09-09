@@ -27,10 +27,14 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.linecorp.bot.model.ReplyMessage;
 import java.util.Collections;
+import com.linecorp.bot.client.LineMessagingClient;
 
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
+	@Autowired
+	private LineMessagingClient lineMessagingClient;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(EchoApplication.class, args);
 	}
