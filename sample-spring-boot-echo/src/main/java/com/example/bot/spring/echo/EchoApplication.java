@@ -111,9 +111,10 @@ public class EchoApplication {
 		throws Exception {
 		String text = content.getText();
 		log.info("Got text message from {}: {}", replyToken, text);
-		if(text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
-		else text = null;
 		this.replyText(replyToken, text);
+		
+		//if(text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
+		//else text = null;
 	}
 	
 	@EventMapping
@@ -121,15 +122,18 @@ public class EchoApplication {
 		System.out.println("event: " + event);
 	}
 	
-	private void replyText(@NonNull String replyToken, String message) {
-		this.reply(replyToken, new TextMessage(message));
+	private void replyText(@NonNull String replyToken, @NonNull String message) {
+		//this.reply(replyToken, new TextMessage(message));
+		BotApiResponse apiResponse = lineMessagingClient
+				.replyMessage(new ReplyMessage(replyToken, message))
+				.get();
 	}
 	
-	private void reply(@NonNull String replyToken, Message message) {
+	/**private void reply(@NonNull String replyToken, @NonNull Message message) {
 		reply(replyToken, Collections.singletonList(message));
 	}
 	
-	private void reply(@NonNull String replyToken, List<Message> messages) {
+	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
 		try {
 			BotApiResponse apiResponse = lineMessagingClient
 				.replyMessage(new ReplyMessage(replyToken, messages))
@@ -138,5 +142,5 @@ public class EchoApplication {
 		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}**/
 }
