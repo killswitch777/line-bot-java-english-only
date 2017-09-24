@@ -37,7 +37,8 @@ public class EchoApplication {
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
         String text = event.getMessage().getText();
-        return new TextMessage(text.getBytes().length == text.length() ? "good" : "ENGLISH ONLY!!!");
+        String reply = text.getBytes().length == text.length() ? "good" : "ENGLISH ONLY!!!";
+        return new TextMessage(reply);
     }
 
     @EventMapping
