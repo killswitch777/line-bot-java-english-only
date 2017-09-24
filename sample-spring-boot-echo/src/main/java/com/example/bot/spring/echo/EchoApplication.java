@@ -21,6 +21,22 @@ public class EchoApplication {
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
         return new TextMessage(event.getMessage().getText());
+        
+        
+        
+        TextMessage textMessage = new TextMessage("hello");
+        PushMessage pushMessage = new PushMessage(
+            "<to>",
+            textMessage
+        );
+        
+        Response<BotApiResponse> response =
+            LineMessagingServiceBuilder
+            .create("<channel access token>")
+            .build()
+            .pushMessage(pushMessage)
+            .execute();
+        System.out.println(response.code() + " " + response.message());
     }
 
     @EventMapping
