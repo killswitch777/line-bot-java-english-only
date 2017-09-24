@@ -25,116 +25,22 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-import com.linecorp.bot.model.ReplyMessage;
-import java.util.Collections;
-import com.linecorp.bot.client.LineMessagingClient;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
-import com.linecorp.bot.model.message.template.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.google.common.io.ByteStreams;
-
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.client.MessageContentResponse;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.action.MessageAction;
-import com.linecorp.bot.model.action.PostbackAction;
-import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.event.BeaconEvent;
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.FollowEvent;
-import com.linecorp.bot.model.event.JoinEvent;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.PostbackEvent;
-import com.linecorp.bot.model.event.UnfollowEvent;
-import com.linecorp.bot.model.event.message.AudioMessageContent;
-import com.linecorp.bot.model.event.message.ImageMessageContent;
-import com.linecorp.bot.model.event.message.LocationMessageContent;
-import com.linecorp.bot.model.event.message.StickerMessageContent;
-import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.message.VideoMessageContent;
-import com.linecorp.bot.model.event.source.GroupSource;
-import com.linecorp.bot.model.event.source.RoomSource;
-import com.linecorp.bot.model.event.source.Source;
-import com.linecorp.bot.model.message.AudioMessage;
-import com.linecorp.bot.model.message.ImageMessage;
-import com.linecorp.bot.model.message.ImagemapMessage;
-import com.linecorp.bot.model.message.LocationMessage;
-import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.StickerMessage;
-import com.linecorp.bot.model.message.TemplateMessage;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.VideoMessage;
-import com.linecorp.bot.model.message.imagemap.ImagemapArea;
-import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
-import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
-import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.annotation.EventMapping;
-import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-
-import lombok.NonNull;
-import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
-	@Autowired
-	private LineMessagingClient lineMessagingClient;
-	
-	public static void main(String[] args) {
-		SpringApplication.run(EchoApplication.class, args);
-	}
-	
-	@EventMapping
-	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-		TextMessageContent message = event.getMessage();
-		handleTextContent(event.getReplyToken(), message);
-	}
-	
-	private void handleTextContent(String replyToken, TextMessageContent content) throws Exception {
-		String text = content.getText();
-		log.info("Got text message from {}: {}", replyToken, text);
-		//if (text.getBytes().length == text.length()) text = "ENGLISH ONLY!!!";
-		this.replyText(replyToken, text);
-	}
-	
-	@EventMapping
-	public void handleDefaultMessageEvent(Event event) {
-		System.out.println("event: " + event);
-	}
-	
-	private void replyText(@NonNull String replyToken, @NonNull String message) {
-		this.reply(replyToken, new TextMessage(message));
-	}
-	
-	private void reply(@NonNull String replyToken, @NonNull Message message) {
-		reply(replyToken, Collections.singletonList(message));
-	}
-	
-	private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
-		try {
-			BotApiResponse apiResponse = lineMessagingClient
-				.replyMessage(new ReplyMessage(replyToken, messages))
-				.get();
-			log.info("Sent messages: {}", apiResponse);
-		} catch (InterruptedException | ExecutionException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EchoApplication.class, args);
+    }
+
+    @EventMapping
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        return new TextMessage(event.getMessage().getText());
+    }
+
+    @EventMapping
+    public void handleDefaultMessageEvent(Event event) {
+        System.out.println("event: " + event);
+    }
 }
