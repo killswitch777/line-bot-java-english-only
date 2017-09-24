@@ -95,12 +95,50 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 @Slf4j
 @LineMessageHandler
-
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
     @Autowired
     private LineMessagingClient lineMessagingClient;
+    
+    @EventMapping
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+        TextMessageContent message = event.getMessage();
+        String text = message.getText();
+        this.replyText(event.getReplyToken(), text.getBytes().length == text.length() ? "good" : "ENGLISH ONLY!!!");
+    }
+
+    private void reply(@NonNull String replyToken, @NonNull Message message) {
+        reply(replyToken, Collections.singletonList(message));
+    }
+
+    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+        try {
+            BotApiResponse apiResponse = lineMessagingClient
+                    .replyMessage(new ReplyMessage(replyToken, messages))
+                    .get();
+            log.info("Sent messages: {}", apiResponse);
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void replyText(@NonNull String replyToken, @NonNull String message) {
+        if (replyToken.isEmpty()) {
+            throw new IllegalArgumentException("replyToken must not be empty");
+        }
+        this.reply(replyToken, new TextMessage(message));
+    }
+
+    private void handleTextContent(String replyToken, Event event, TextMessageContent content)
+            throws Exception {
+        String text = content.getText();
+        log.info("Got text message from {}: {}", replyToken, text);
+        this.replyText(replyToken, "Leaving group");
+    }
+    
+    
+    
     
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -115,35 +153,6 @@ public class EchoApplication {
     }**/
     
     
-    @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = event.getMessage();
-        String replyToken = event.getReplyToken();
-        String text = message.getText();
-        this.replyText(replyToken, text.getBytes().length == text.length() ? "good" : "ENGLISH ONLY!!!");
-    }
-    
-    private void reply(@NonNull String replyToken, @NonNull Message message) {
-        reply(replyToken, Collections.singletonList(message));
-    }
-    
-    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
-        try {
-            BotApiResponse apiResponse = lineMessagingClient
-                    .replyMessage(new ReplyMessage(replyToken, messages))
-                    .get();
-            log.info("Sent messages: {}", apiResponse);
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    private void replyText(@NonNull String replyToken, @NonNull String message) {
-        if (replyToken.isEmpty()) {
-            throw new IllegalArgumentException("replyToken must not be empty");
-        }
-        this.reply(replyToken, new TextMessage(message));
-    }
     
     @EventMapping
     public void handleDefaultMessageEvent(Event event) {
