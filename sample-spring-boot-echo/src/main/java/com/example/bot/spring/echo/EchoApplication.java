@@ -207,7 +207,7 @@ public class EchoApplication {
             throw new IllegalArgumentException("replyToken must not be empty");
         }
         if (message.length() > 1000) {
-            message = message.substring(0, 1000 - 2) + "�色��";
+            message = message.substring(0, 1000 - 2) + "...";
         }
         this.reply(replyToken, new TextMessage(message));
     }
@@ -295,12 +295,12 @@ public class EchoApplication {
                                 new URIAction("Go to line.me",
                                               "https://line.me"),
                                 new PostbackAction("Say hello1",
-                                                   "hello �����"),
-                                new PostbackAction("閮� hello2",
-                                                   "hello �����",
-                                                   "hello �����"),
+                                                   "hello"),
+                                new PostbackAction("hello2",
+                                                   "hello",
+                                                   "hello"),
                                 new MessageAction("Say message",
-                                                  "Rice=蝐�")
+                                                  "Rice=")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
@@ -314,14 +314,14 @@ public class EchoApplication {
                                         new URIAction("Go to line.me",
                                                       "https://line.me"),
                                         new PostbackAction("Say hello1",
-                                                           "hello �����")
+                                                           "hello")
                                 )),
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("閮� hello2",
-                                                           "hello �����",
-                                                           "hello �����"),
+                                        new PostbackAction("hello2",
+                                                           "hello",
+                                                           "hello"),
                                         new MessageAction("Say message",
-                                                          "Rice=蝐�")
+                                                          "Rice=")
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
@@ -338,12 +338,12 @@ public class EchoApplication {
                                 ),
                                 new ImageCarouselColumn(imageUrl,
                                         new MessageAction("Say message",
-                                                "Rice=蝐�")
+                                                "Rice=")
                                 ),
                                 new ImageCarouselColumn(imageUrl,
-                                        new PostbackAction("閮� hello2",
-                                                "hello �����",
-                                                "hello �����")
+                                        new PostbackAction("hello2",
+                                                "hello",
+                                                "hello")
                                 )
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("ImageCarousel alt text", imageCarouselTemplate);
