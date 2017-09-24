@@ -80,7 +80,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @LineMessageHandler
-public class echoApplication {
+public class EchoApplication {
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
